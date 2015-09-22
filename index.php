@@ -75,7 +75,7 @@ echo "
 
 <div id = 'singleProduct'>
 <h3>$NAME </h3>
-<img src = 'admin/productImages/$ProductImageo' width = '180' height = '180 />'
+<img src = 'admin/productImages/$ProductImage' width = '180' height = '180 />'
 <a href='index.php?Price=$Price'style='float:left;'>Price </a>
 <a href = 'index.php?add_cart=$id'><button style = 'float:right;'>Add to Cart</button></a>
 </div>
