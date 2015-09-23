@@ -49,8 +49,8 @@ include("includes/db.php");
 		<div id= "head">
 				<div id= "headContent">
 				<b>Welcome!</b>
-				<b style = "color: orange;"Shopping Cart:</b>
-				<span> Items:  - Price:  </span>
+				<b style = "color: orange;"</b>
+				<span>Shopping Cart Items:  - Price: </span>
 
 		</div>
 
@@ -58,7 +58,7 @@ include("includes/db.php");
 	<div id = "productsBox">
 <?php
     $con = mysqli_connect('localhost', 'root', '', 'csen');
-$get_products = "select *  FROM product LIMIT 0,6";
+$get_products = "select *  FROM product LIMIT 0,20";
 
 $run_products = mysqli_query($con , $get_products);
 
@@ -77,7 +77,7 @@ echo "
 <h3>$NAME </h3>
 <img src = 'admin/productImages/$ProductImage' width = '180' height = '180 />'
 <br>
-<h4 style = 'float:center'>Price: $Price </h4> 
+<h4 style = 'float:center'>Price: £$Price </h4> 
 <a href = 'index.php?add_cart=$id'><button class = 'myButton' style = 'float:center;'>Add to Cart</button></a>
 </div>
 

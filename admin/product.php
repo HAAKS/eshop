@@ -79,7 +79,7 @@ else {
 $run_product = mysqli_query($con, $insertProduct);
 
 if($run_product){
-	echo "<script>alert('Product inserted successfully')";
+	echo "<script>alert('Product inserted successfully')</script>";
 }
 }
 

@@ -29,14 +29,14 @@ footer, header, hgroup, menu, nav, section {
 }
 
 .page {
-	width: 900px;
+	width: 1000px;
 	height: auto;
 	margin: auto;
 
 
 }
 .header_part {
-	width: 900px;
+	width: 1000px;
 	height: 150px;
 	background-color: #FFF;
 }
@@ -45,7 +45,7 @@ background-color: #D3D3D3;
 }
 
 #bar {
-	width: 900px;
+	width: 1000px;
 	height:50px;
 	background: #999;
 	color: #fff;
@@ -79,34 +79,36 @@ background-color: #D3D3D3;
 }
 
 .content {
-	width: 900px;
-	height:600px;
-	background: #F96;	
+	width: 1000px;
+	height:1500px;
+	background: #FFBB36;	
 }
 
 #whatsInside {
-	width: 900px;
-	height: 600px;
+	width: 1000px;
+	height: 1000px;
 	background: #FFBB36;
 	float: right;
 }
 
 #head {
-	background:#000; color:#FFF; float:right; width:880px; height:35px; padding:10px;}
+	background:#000; color:#FFF; float:right; width:980px; height:35px; padding:10px;}
 }
 #headContent { float: right;
 }
 #productsBox {
-	width: 780px;
-	padding:10px;
+	width: 1000px;
+	padding:40px;
 	margin-left: 30px;
 	margin-top: 10px;
 	margin-bottom: 10px;
+	margin-right: 30px;
 	text-align: center;
 }
 #singleProduct {
 	color: black;
-	float:left; padding:10px;
+	float:left; padding:40px;
+	margin-left: 30px;
 }
 #singleProduct img [border:2px solid #333;]
 .footer{
