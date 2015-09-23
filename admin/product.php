@@ -55,7 +55,6 @@ include("includes/db.php");
 </html>
 
 <?php
-    $con = mysqli_connect('localhost', 'root', '', 'csen');
 
 if(isset($_POST['product'])) {
 $NAME = $_POST['NAME'];
@@ -63,18 +62,20 @@ $Quantity = $_POST['Quantity'];
 $type = $_POST['type'];
 $Summary = $_POST['Summary'];
 $Price = $_POST['Price'];
-$ProductImage = $_FILES['ProductImage'];
+$ProductImage = $_FILES['ProductImage'] ['name'];
+$ProductImagetemp = $_FILES['ProductImage'] ['tmp_name'];
 
 
 
-if($NAME == '' OR $Quantity = '' OR $type = '' OR $Summary = '' OR $Price = '' OR $ProductImage =''){
+if($NAME == '' OR $Quantity == '' OR $type == '' OR $Summary == '' OR $Price == '' OR $ProductImage == ''){
 echo "<script>alert('Please fill in all the fields.')</script>";
 exit();
 }
 else {
-	move_uploaded_file($ProductImage, "productImages/$ProductImage");
-	$insertProduct = "insert into product (NAME, Quantity, type, Summary, Price, ProductImage) values ('$NAME', '$Quantity', '$type', '$Summary', '$Price', '$ProductImage')";
+		$insertProduct = "INSERT INTO product (NAME, Quantity, type, Summary, Price, ProductImage) VALUES ('$NAME', '$Quantity', '$type', '$Summary', '$Price', '$ProductImage')";
+		move_uploaded_file($ProductImagetemp, "productImages/$ProductImage");
 }
+    $con = mysqli_connect('localhost', 'root','', 'csen');
 $run_product = mysqli_query($con, $insertProduct);
 
 if($run_product){

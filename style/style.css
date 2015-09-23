@@ -105,8 +105,10 @@ background-color: #D3D3D3;
 	text-align: center;
 }
 #singleProduct {
+	color: black;
 	float:left; padding:10px;
 }
+#singleProduct img [border:2px solid #333;]
 .footer{
 		width: 900px;
 		height: 100px;
@@ -114,3 +116,26 @@ background-color: #D3D3D3;
 		color: #FFF;
 		clear: both;
 	}
+
+
+.myButton {
+	background-color:#737373;
+	-moz-border-radius:28px;
+	-webkit-border-radius:28px;
+	border-radius:28px;
+	border:1px solid #000000;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:12px;
+	padding:10px 20px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #28631f;
+}
+.myButton:hover {
+	background-color:black;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
