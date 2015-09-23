@@ -81,13 +81,13 @@ background-color: #D3D3D3;
 .content {
 	width: 1000px;
 	height:1500px;
-	background: #FFBB36;	
+	background: #F3DCD4;	
 }
 
 #whatsInside {
 	width: 1000px;
 	height: 1000px;
-	background: #FFBB36;
+	background: #F3DCD4;
 	float: right;
 }
 
@@ -113,7 +113,7 @@ background-color: #D3D3D3;
 #singleProduct img [border:2px solid #333;]
 .footer{
 		width: 900px;
-		height: 100px;
+		height: 200px;
 		background: #999;
 		color: #FFF;
 		clear: both;

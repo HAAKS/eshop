@@ -16,8 +16,8 @@ include("includes/db.php");
 
 	
 	<div class = "header_part">
-	<img src="images/3.jpg" style="float:left;">
-		<img src="images/1.gif" style="float:right;">
+	<img src="images/logo.png" style="float:left;">
+		<img src="images/2.jpg" style="float:right;">
 
 		
 	</div>
@@ -49,7 +49,7 @@ include("includes/db.php");
 		<div id= "head">
 				<div id= "headContent">
 				<b>Welcome!</b>
-				<b style = "color: orange;"</b>
+				<b style = "color: #F3DCD4;"</b>
 				<span>Shopping Cart Items:  - Price: </span>
 
 		</div>
