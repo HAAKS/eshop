@@ -55,10 +55,13 @@ include("includes/db.php");
 		</div>
 
 	</div>
-	<div id = "productsBox">
+
 <?php
+if(isset($_GET['id'])){
+	$id = $_GET['id'];
     $con = mysqli_connect('localhost', 'root', '', 'csen');
-$get_products = "select *  FROM product LIMIT 0,20";
+
+$get_products = "select *  FROM product WHERE id = '$id'";
 
 $run_products = mysqli_query($con , $get_products);
 
@@ -74,14 +77,16 @@ while ($row_products = mysqli_fetch_array($run_products)) {
 echo "
 
 <div id = 'singleProduct'>
-<h3>$NAME </h3>
-<img src = 'admin/productImages/$ProductImage' width = '180' height = '180 />'
+<h2 style = 'float: cnter;'>$NAME </h2>
+<img src = 'admin/productImages/$ProductImage' width = '500' height = '500; />'
 <br>
-<h4 style = 'float:center'>Price: £$Price </h4> 
-<a href = 'description.php?id=$id' style = 'float:center; color:black;'>Product Description</a>
+<h3 style = 'float:center'>Price: £$Price </h3>
+<p style = 'float:center'>$Summary </p>  
+<br>
+<br>
 <br>
 <a href = 'index.php?id=$id'><button class = 'myButton' style = 'float:center;'>Add to Cart</button></a>
-</div>
+<div> <a href = 'index.php' style = 'float:center; color:black;'>Go Back</a> </div>
 
 
 ";
@@ -89,11 +94,10 @@ echo "
 
 
 }
-
+}
 ?>
 
 
-	</div>
 
 
 	</div>
