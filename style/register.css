@@ -1,0 +1,45 @@
+body{
+background: url('register.jpg');
+background-size: 100% 100%;
+background-repeat: no-repeat;
+}
+html , body{
+	height: : 100%;
+	font-style: italic;
+}
+#mytable{
+	vertical-align: middle;
+	display: table-cell;
+	height: 100%;
+	font-style: italic;
+}
+#textbox{
+	height: 50px;
+	width: 300px;
+	font-size: 14pt;
+	font-style: oblique;
+	
+}
+#button{
+	background-color: #000000;
+	color : #FFFFFF;
+	float: center;
+    padding: 10px;
+    border-radius: 10px;
+}
+.right{
+position: absolute;
+right: 0;
+width: 300;
+padding: 10px;
+margin-left: 800px;
+}
+span{
+	margin-left: 800px;
+}
+table{
+	border: 1px solid black;
+}
+td{
+	padding: 15px;
+}

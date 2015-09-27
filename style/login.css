@@ -1,0 +1,51 @@
+body{
+  background-color: #D3D3D3;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+html , body{
+  height: : 100%;
+  font-style: italic;
+}
+#mytable{
+  vertical-align: middle;
+  display: table-cell;
+  height: 100%;
+  font-style: italic;
+}
+#textbox{
+  height: 50px;
+  width: 300px;
+  font-size: 14pt;
+  font-style: oblique;
+  
+}
+#button{
+  background-color: #000000;
+  color : #FFFFFF;
+  float: center;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.myButton {
+  background-color:#737373;
+  -moz-border-radius:28px;
+  -webkit-border-radius:28px;
+  border-radius:28px;
+  border:1px solid #000000;
+  display:inline-block;
+  cursor:pointer;
+  color:#ffffff;
+  font-family:Arial;
+  font-size:12px;
+  padding:10px 20px;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #28631f;
+}
+.myButton:hover {
+  background-color:black;
+}
+.myButton:active {
+  position:relative;
+  top:1px;

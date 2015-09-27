@@ -1,5 +1,6 @@
 <?php
 include("includes/db.php");
+session_start();
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -24,9 +25,17 @@ include("includes/db.php");
 	<div id= "bar">
 		<ul id = "menu">
 		<li><a href = "index.php">Products</a></li>
-		<li><a href = "#">My Acount</a></li>
+		<li><?php if (isset($_SESSION['name'])){ ?>
+					<a href = "profile.php">My Account</a>
+					<?php 
+				}
+					else { ?>
+						<a href = "login.php"> My Account</a>
+						<?php
+
+						} ?></li>
 		<li><a href = "#">Login/Sign Up</a></li>
-		<li><a href = "#">Contact Us</a></li>
+		<li><a href = "contactus.html">Contact Us</a></li>
 
 
 
@@ -50,7 +59,12 @@ include("includes/db.php");
 				<div id= "headContent">
 				
 				<span style = "float:right; font-size: 18px; padding:5px;line-height: 40px;">
-				Welcome! <b style= "color:yellow">Shopping Cart:</b> Total Items - Total Price: <a href="shoppingcart.php" style= "color:yellow">Go to cart</a> </span>
+				Welcome <?php if (isset($_SESSION['name'])){
+					echo $_SESSION['name']."! ";
+					}
+					else {
+						echo "Guest! ";
+						} ?><b style= "color:yellow">Shopping Cart:</b> Total Items - Total Price: <a href="shoppingcart.php" style= "color:yellow">Go to cart</a> </span>
 
 		</div>
 
@@ -58,10 +72,11 @@ include("includes/db.php");
 	<div id = "productsBox">
 <?php
     $con = mysqli_connect('localhost', 'root', '', 'csen');
-$get_products = "select *  FROM product LIMIT 0,20";
+
+
+$get_products = "SELECT *  FROM product LIMIT 0,20";
 
 $run_products = mysqli_query($con , $get_products);
-
 while ($row_products = mysqli_fetch_array($run_products)) {
 	$id = $row_products['id'];
 	$NAME = $row_products['NAME'];
@@ -70,7 +85,7 @@ while ($row_products = mysqli_fetch_array($run_products)) {
 	$Summary = $row_products['Summary'];
 	$Price = $row_products['Price'];
 	$ProductImage = $row_products['ProductImage'];
-
+if (isset($_SESSION['name'])) {
 echo "
 
 <div id = 'singleProduct'>
@@ -81,10 +96,28 @@ echo "
 <a href = 'description.php?id=$id' style = 'float:center; color:black;'>Product Description</a>
 <br>
 <a href = 'index.php?id=$id'><button class = 'myButton' style = 'float:center;'>Add to Cart</button></a>
+
 </div>
 
+";
+}
+else {
+	echo "
+
+<div id = 'singleProduct'>
+<h3>$NAME </h3>
+<img src = 'admin/productImages/$ProductImage' width = '180' height = '180 />'
+<br>
+<h4 style = 'float:center'>Price: £$Price </h4> 
+<a href = 'description.php?id=$id' style = 'float:center; color:black;'>Product Description</a>
+<br>
+<a href = 'login.php'><button class = 'myButton' style = 'float:center;'>Add to Cart</button></a>
+
+</div>
 
 ";
+}
+
 
 
 

@@ -1,5 +1,6 @@
 <?php
 include("includes/db.php");
+session_start();
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -24,9 +25,17 @@ include("includes/db.php");
 	<div id= "bar">
 		<ul id = "menu">
 		<li><a href = "index.php">Products</a></li>
-		<li><a href = "#">My Acount</a></li>
+		<li><?php if (isset($_SESSION['name'])){ ?>
+					<a href = "profile.php">My Account</a>
+					<?php 
+				}
+					else { ?>
+						<a href = "login.php"> My Account</a>
+						<?php
+
+						} ?></li>
 		<li><a href = "#">Login/Sign Up</a></li>
-		<li><a href = "#">Contact Us</a></li>
+		<li><a href = "contactus.html">Contact Us</a></li>
 
 
 
@@ -50,11 +59,17 @@ include("includes/db.php");
 				<div id= "headContent">
 				
 				<span style = "float:right; font-size: 18px; padding:5px;line-height: 40px;">
-				Welcome! <b style= "color:yellow">Shopping Cart:</b> Total Items - Total Price: <a href="shoppingcart.php" style= "color:yellow">Go to cart</a> </span>
+				Welcome <?php if (isset($_SESSION['name'])){
+					echo $_SESSION['name']."! ";
+					}
+					else {
+						echo "Guest! ";
+						} ?><b style= "color:yellow">Shopping Cart:</b> Total Items - Total Price: <a href="shoppingcart.php" style= "color:yellow">Go to cart</a> </span>
 
 		</div>
 
 	</div>
+	<div id = "productsBox">
 
 <?php
 if(isset($_GET['search'])){
@@ -73,6 +88,7 @@ while ($row_products = mysqli_fetch_array($run_products)) {
 	$Summary = $row_products['Summary'];
 	$Price = $row_products['Price'];
 	$ProductImage = $row_products['ProductImage'];
+if (isset($_SESSION['name'])) {
 
 echo "
 
@@ -90,6 +106,27 @@ echo "
 
 
 ";
+
+}
+else {
+	echo "
+
+<div id = 'singleProduct'>
+<h2 style = 'float: cnter;'>$NAME </h2>
+<img src = 'admin/productImages/$ProductImage' width = '500' height = '500; />'
+<br>
+<h3 style = 'float:center'>Price: £$Price </h3>
+<p style = 'float:center'>$Summary </p>  
+<br>
+<br>
+<br>
+<a href = 'login.php'><button class = 'myButton' style = 'float:center;'>Add to Cart</button></a>
+<div> <a href = 'index.php' style = 'float:center; color:black;'>Go Back</a> </div>
+
+</div>
+
+";
+}
 
 
 
