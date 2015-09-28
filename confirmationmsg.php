@@ -179,26 +179,6 @@ if ($run_delproducts_in_cart) {
 
 }
 	}
-//decrement quantity
-	//get product id from buy 
-	//select from product those with the same id
-	//decrement the quantity by 1
-	$decrement = "SELECT * FROM buy where  cid = $customerID";
-	$run_decrement = mysqli_query($con,$decrement);
-	while ($pp = mysqli_fetch_array($run_decrement)) {
-		$pidd = $pp['pid'];
-
-	$dec_quantity = "SELECT * FROM product WHERE id = $pidd";
-	$run_product_quantity = mysqli_query($con,$dec_quantity);
-	while($qqq = mysqli_fetch_array($run_product_quantity)) {
-
-$product_quantity= $qqq['Quantity'];
-$product_quantity--;
-$update_quantity = "UPDATE product SET Quantity= $product_quantity WHERE id = $pidd";
-	$run_update_quantity = mysqli_query($con,$update_quantity);
-}
-
-	}
 
 
 	?>

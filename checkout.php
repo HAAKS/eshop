@@ -205,11 +205,27 @@ $products_in_cart= "SELECT * FROM cart where  cid = $customerID";
 $run_products_in_cart = mysqli_query($con , $products_in_cart);
 while ($pro = mysqli_fetch_array($run_products_in_cart)) {
 	$pid = $pro['pid'];
+	//decrement quantity
+	//get product id from buy 
+	//select from product those with the same id
+	//decrement the quantity by 1
+	
+	$dec_quantity = "SELECT * FROM product WHERE id = $pid";
+	$run_product_quantity = mysqli_query($con,$dec_quantity);
+	while($qqq = mysqli_fetch_array($run_product_quantity)) {
+
+$product_quantity= $qqq['Quantity'];
+$product_quantity = $product_quantity - 1;
+$update_quantity = "UPDATE product SET Quantity= $product_quantity WHERE id = $pid";
+	$run_update_quantity = mysqli_query($con,$update_quantity);
+}
+
+	
+
 	$insert_in_buy = "INSERT INTO buy (cid, pid) VALUES ('$customerID','$pid')";
 	$run_insert_in_buy = mysqli_query($con, $insert_in_buy);
 if($run_insert_in_buy) {
-	//	$decrement_quantity = "SELECT"
-	// empty cart
+	
 
 		echo"<script>window.open('confirmationmsg.php','_self')</script>";
 	
