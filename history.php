@@ -43,8 +43,7 @@ session_start();
 						<?php
 
 						} ?></li>
-
-								<li><a href = "contactus.html">Contact Us</a></li>
+		<li><a href = "contactus.html">Contact Us</a></li>
 
 
 
@@ -59,12 +58,13 @@ session_start();
 		</div>
 
 
-
 	</div>
 	<div class = "content"> 
-	<div id = "whatsInside"> 
 
+
+	<div id = "whatsInside"> 
 		<div id= "head">
+
 				<div id= "headContent">
 				
 				<span style = "float:right; font-size: 18px; padding:5px;line-height: 40px;">
@@ -100,9 +100,9 @@ while($p = mysqli_fetch_array($run_price)) {
 	$pid = $p['pid'];
 	$pprice = "SELECT * FROM product WHERE id = $pid";
 	$run_product_price = mysqli_query($con,$pprice);
-	while($ppp_price = mysqli_fetch_array($run_product_price)) {
+	while($pp_price = mysqli_fetch_array($run_product_price)) {
 
-$product_price = array($ppp_price['Price']);
+$product_price = array($pp_price['Price']);
 
 $sumprice = array_sum($product_price);
 $total += $sumprice;
@@ -116,93 +116,74 @@ $total += $sumprice;
 
 						?> 
 
- <a href="shoppingcart.php" style= "color:yellow">Go to cart</a> </span>
+
+						 <a href="shoppingcart.php" style= "color:yellow">Go to cart</a> </span>
 
 		</div>
 
 	</div>
 	<div id = "productsBox">
+<form action= "" method = "post" enctype ="multipart/form-data">
+<table align = "center" width = "700">
+<tr align = "center">
+<br>
+<br>
+<br>
+	</tr>
 
-<?php
-if(isset($_GET['id'])){
-	$id = $_GET['id'];
+<tr>
+<td colspan="3" id = "msg">
+YOUR PURCHASED PRODUCTS! </td>
+</tr>
+
+
+
+	<tr id= "table_head" align="center">
+	<th>Product (s)</th>
+	</tr>
+	
+	<?php
+
+
     $con = mysqli_connect('localhost', 'root', '', 'csen');
+    $customerID = $_SESSION['id'];
+$price= "SELECT * FROM buy where  cid = $customerID";
+$run_price = mysqli_query ($con, $price);
+while($p = mysqli_fetch_array($run_price)) {
+	$pid = $p['pid'];
+	$pprice = "SELECT * FROM product WHERE id = $pid";
+	$run_product_price = mysqli_query($con,$pprice);
+	while($pp_price = mysqli_fetch_array($run_product_price)) {
 
-$get_products = "select *  FROM product WHERE id = '$id'";
+$product_price = array($pp_price['Price']);
+$product_name = $pp_price['NAME'];
+$product_image = $pp_price['ProductImage'];
+$single_price = $pp_price['Price'];
 
-$run_products = mysqli_query($con , $get_products);
+$sumprice = array_sum($product_price);
+$total += $sumprice;
 
-while ($row_products = mysqli_fetch_array($run_products)) {
-	$pid = $row_products['id'];
-	$NAME = $row_products['NAME'];
-	$Quantity = $row_products['Quantity'];
-	$type = $row_products['type'];
-	$Summary = $row_products['Summary'];
-	$Price = $row_products['Price'];
-	$ProductImage = $row_products['ProductImage'];
-if (isset($_SESSION['name'])) {
-
-echo "
-
-<div id = 'singleProduct'>
-<h2 style = 'float: cnter;'>$NAME </h2>
-<img src = 'admin/productImages/$ProductImage' width = '500' height = '500; />'
-<br>
-<h3 style = 'float:center'>Price: £$Price </h3>
-<p style = 'float:center'>$Summary </p>  
-<br>
-<br>
-<br>
-<a href = 'index.php?add_cart=$pid'><button class = 'myButton' name = 'addtocart' style = 'float:center;'>Add to Cart</button></a>
-<div> <a href = 'index.php' style = 'float:center; color:black;'>Go Back</a> </div>
+	?>
 
 
-";
+<tr id = "table_data" align="center">
 
-}
-else {
-	echo "
+<td> <?php echo $product_name; ?> <br>
 
-<div id = 'singleProduct'>
-<h2 style = 'float: cnter;'>$NAME </h2>
-<img src = 'admin/productImages/$ProductImage' width = '500' height = '500; />'
-<br>
-<h3 style = 'float:center'>Price: £$Price </h3>
-<p style = 'float:center'>$Summary </p>  
-<br>
-<br>
-<br>
-<a href = 'login.php'><button class = 'myButton' style = 'float:center;'>Add to Cart</button></a>
-<div> <a href = 'index.php' style = 'float:center; color:black;'>Go Back</a> </div>
+<img src = "admin/productImages/<?php echo $product_image ?>" width="100" height = "100" />
+</td>
+</tr>
+
+<?php } } ?>
+
+
+</table>
+
+
+</form>
+
 
 </div>
-
-";
-}
-if (isset($_GET["add_cart"])){
-$pid = $_GET["add_cart"];
-$cid = $_SESSION['id'];
-
-$insert_product = "INSERT INTO cart (cid, pid) VALUES ($cid, $pid)";
-$run_pro = mysqli_query($con, $insert_product);
-
-
-if ($run_pro) {
-	echo "<script>alert('Product added to cart.')</script>";
-}
-
-}
-
-
-
-}
-}
-?>
-
-
-
-
-	</div>
 	</div>
 	<div class = "footer"> </div>
 

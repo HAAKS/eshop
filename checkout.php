@@ -58,12 +58,13 @@ session_start();
 		</div>
 
 
-
 	</div>
 	<div class = "content"> 
-	<div id = "whatsInside"> 
 
+
+	<div id = "whatsInside"> 
 		<div id= "head">
+
 				<div id= "headContent">
 				
 				<span style = "float:right; font-size: 18px; padding:5px;line-height: 40px;">
@@ -99,9 +100,9 @@ while($p = mysqli_fetch_array($run_price)) {
 	$pid = $p['pid'];
 	$pprice = "SELECT * FROM product WHERE id = $pid";
 	$run_product_price = mysqli_query($con,$pprice);
-	while($ppp_price = mysqli_fetch_array($run_product_price)) {
+	while($pp_price = mysqli_fetch_array($run_product_price)) {
 
-$product_price = array($ppp_price['Price']);
+$product_price = array($pp_price['Price']);
 
 $sumprice = array_sum($product_price);
 $total += $sumprice;
@@ -115,94 +116,123 @@ $total += $sumprice;
 
 						?> 
 
- <a href="shoppingcart.php" style= "color:yellow">Go to cart</a> </span>
+
+						 <a href="shoppingcart.php" style= "color:yellow">Go to cart</a> </span>
 
 		</div>
 
 	</div>
 	<div id = "productsBox">
+<form action= "" method = "post" enctype ="multipart/form-data">
+<table align = "center" width = "700">
+<tr align = "center">
+<br>
+<br>
+<br>
+	</tr>
+
+<tr>
+<td colspan="3" id = "msg">
+Are you sure you want to buy this/these product(s)? </td>
+</tr>
+
+
+
+	<tr id= "table_head" align="center">
+	<th>Product (s)</th>
+	<th>Price</th>
+	</tr>
+	
+	<?php
+
+
+    $con = mysqli_connect('localhost', 'root', '', 'csen');
+    $total = 0;
+    $customerID = $_SESSION['id'];
+$price= "SELECT * FROM cart where  cid = $customerID";
+$run_price = mysqli_query ($con, $price);
+while($p = mysqli_fetch_array($run_price)) {
+	$pid = $p['pid'];
+	$pprice = "SELECT * FROM product WHERE id = $pid";
+	$run_product_price = mysqli_query($con,$pprice);
+	while($pp_price = mysqli_fetch_array($run_product_price)) {
+
+$product_price = array($pp_price['Price']);
+$product_name = $pp_price['NAME'];
+$product_image = $pp_price['ProductImage'];
+$single_price = $pp_price['Price'];
+
+$sumprice = array_sum($product_price);
+$total += $sumprice;
+
+	?>
+
+
+<tr id = "table_data" align="center">
+
+<td> <?php echo $product_name; ?> <br>
+
+<img src = "admin/productImages/<?php echo $product_image ?>" width="80" height = "80" />
+</td>
+<td> <?php echo "£".$single_price; ?></td>
+</tr>
+
+<?php } } ?>
+
+<tr align = "right">
+<td id = "table_head" colspan="3"><b>Total Price: <?php echo "£".$total;?></b></td>
+<td colspan="3">  </td> 
+</tr>
+<tr align="center">
+<td><input class = "myButton" type="submit" name = "edit" value="Edit Cart"/></td> </th>
+<td><input class = "myButton" type="submit" name = "continue" value="Continue Shopping"/></td>
+</tr>
+<tr align="right"> 
+<td><input class = "myButton" type="submit" name = "buy" value="BUY NOW"/></td>
+</tr> 
+</table>
+
+
+</form>
 
 <?php
-if(isset($_GET['search'])){
-	$search_query = $_GET['user_query'];
     $con = mysqli_connect('localhost', 'root', '', 'csen');
+    $customerID = $_SESSION['id'];
 
-$get_products = "select *  FROM product WHERE NAME LIKE '%$search_query%'";
+if (isset ($_POST['buy'])) {
 
-$run_products = mysqli_query($con , $get_products);
+$products_in_cart= "SELECT * FROM cart where  cid = $customerID";
+$run_products_in_cart = mysqli_query($con , $products_in_cart);
+while ($pro = mysqli_fetch_array($run_products_in_cart)) {
+	$pid = $pro['pid'];
+	$insert_in_buy = "INSERT INTO buy (cid, pid) VALUES ('$customerID','$pid')";
+	$run_insert_in_buy = mysqli_query($con, $insert_in_buy);
+if($run_insert_in_buy) {
+	//	$decrement_quantity = "SELECT"
+	// empty cart
 
-while ($row_products = mysqli_fetch_array($run_products)) {
-	$pid = $row_products['id'];
-	$NAME = $row_products['NAME'];
-	$Quantity = $row_products['Quantity'];
-	$type = $row_products['type'];
-	$Summary = $row_products['Summary'];
-	$Price = $row_products['Price'];
-	$ProductImage = $row_products['ProductImage'];
-if (isset($_SESSION['name'])) {
-
-echo "
-
-<div id = 'singleProduct'>
-<h2 style = 'float: cnter;'>$NAME </h2>
-<img src = 'admin/productImages/$ProductImage' width = '500' height = '500; />'
-<br>
-<h3 style = 'float:center'>Price: £$Price </h3>
-<p style = 'float:center'>$Summary </p>  
-<br>
-<br>
-<br>
-<a href = 'index.php?add_cart=$pid'><button class = 'myButton' name = 'addtocart' style = 'float:center;'>Add to Cart</button></a>
-<div> <a href = 'index.php' style = 'float:center; color:black;'>Go Back</a> </div>
-
-
-";
+		echo"<script>window.open('confirmationmsg.php','_self')</script>";
+	
 
 }
-else {
-	echo "
-
-<div id = 'singleProduct'>
-<h2 style = 'float: cnter;'>$NAME </h2>
-<img src = 'admin/productImages/$ProductImage' width = '500' height = '500; />'
-<br>
-<h3 style = 'float:center'>Price: £$Price </h3>
-<p style = 'float:center'>$Summary </p>  
-<br>
-<br>
-<br>
-<a href = 'login.php'><button class = 'myButton' style = 'float:center;'>Add to Cart</button></a>
-<div> <a href = 'index.php' style = 'float:center; color:black;'>Go Back</a> </div>
-
-</div>
-
-";
 }
-if (isset($_GET["add_cart"])){
-$pid = $_GET["add_cart"];
-$cid = $_SESSION['id'];
-
-$insert_product = "INSERT INTO cart (cid, pid) VALUES ($cid, $pid)";
-$run_pro = mysqli_query($con, $insert_product);
-
-
-if ($run_pro) {
-	echo "<script>alert('Product added to cart.')</script>";
-}
-
 }
 
 
 
+if (isset($_POST['continue'])) {
+		echo"<script>window.open('index.php','_self')</script>";
+}
 
+if (isset($_POST['edit'])) {
+		echo"<script>window.open('shoppingcart.php','_self')</script>";
 }
-}
+
+
+
 ?>
 
-
-
-
-	</div>
+</div>
 	</div>
 	<div class = "footer"> </div>
 

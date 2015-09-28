@@ -34,7 +34,15 @@ session_start();
 						<?php
 
 						} ?></li>
-		<li><a href = "#">Login/Sign Up</a></li>
+<li><?php if (isset($_SESSION['name'])){ ?>
+					<a href = "logout.php">Logout</a>
+					<?php 
+				}
+					else { ?>
+						<a href = "login.php"> Login/Signup</a>
+						<?php
+
+						} ?></li>
 		<li><a href = "contactus.html">Contact Us</a></li>
 
 
@@ -50,12 +58,13 @@ session_start();
 		</div>
 
 
-
 	</div>
 	<div class = "content"> 
-	<div id = "whatsInside"> 
 
+
+	<div id = "whatsInside"> 
 		<div id= "head">
+
 				<div id= "headContent">
 				
 				<span style = "float:right; font-size: 18px; padding:5px;line-height: 40px;">
@@ -64,21 +73,66 @@ session_start();
 					}
 					else {
 						echo "Guest! ";
-						} ?><b style= "color:yellow">Shopping Cart:</b> Total Items - Total Price: <a href="shoppingcart.php" style= "color:yellow">Go to cart</a> </span>
+						} ?><b style= "color:yellow">Shopping Cart:</b> Total Items: 
+						<?php 
+    $con = mysqli_connect('localhost', 'root', '', 'csen');
+        mysql_connect("localhost", "root" ,"");
+    mysql_select_db("csen");
+    $customerID = $_SESSION['id'];
+$countProducts= "SELECT * FROM cart where  cid = $customerID";
+$run_items = mysqli_query ($con, $countProducts);
+    $x=mysql_query($countProducts);
+
+    $countp =mysql_num_rows($x);
+    echo $countp ."; "; 
+
+
+
+						?> Total Price: 
+	
+					<?php 
+    $con = mysqli_connect('localhost', 'root', '', 'csen');
+    $total = 0;
+    $customerID = $_SESSION['id'];
+$price= "SELECT * FROM cart where  cid = $customerID";
+$run_price = mysqli_query ($con, $price);
+while($p = mysqli_fetch_array($run_price)) {
+	$pid = $p['pid'];
+	$pprice = "SELECT * FROM product WHERE id = $pid";
+	$run_product_price = mysqli_query($con,$pprice);
+	while($ppp_price = mysqli_fetch_array($run_product_price)) {
+
+$product_price = array($ppp_price['Price']);
+
+$sumprice = array_sum($product_price);
+$total += $sumprice;
+
+	}
+}
+
+    echo "£".$total."; "; 
+
+
+
+						?> 
+
+
+						 <a href="shoppingcart.php" style= "color:yellow">Go to cart</a> </span>
 
 		</div>
 
 	</div>
 	<div id = "productsBox">
+
+
 <?php
     $con = mysqli_connect('localhost', 'root', '', 'csen');
-
 
 $get_products = "SELECT *  FROM product LIMIT 0,20";
 
 $run_products = mysqli_query($con , $get_products);
 while ($row_products = mysqli_fetch_array($run_products)) {
-	$id = $row_products['id'];
+	$pid = $row_products['id'];
 	$NAME = $row_products['NAME'];
 	$Quantity = $row_products['Quantity'];
 	$type = $row_products['type'];
@@ -93,33 +147,47 @@ echo "
 <img src = 'admin/productImages/$ProductImage' width = '180' height = '180 />'
 <br>
 <h4 style = 'float:center'>Price: £$Price </h4> 
-<a href = 'description.php?id=$id' style = 'float:center; color:black;'>Product Description</a>
+<a href = 'description.php?id=$pid' style = 'float:center; color:black;'>Product Description</a>
 <br>
-<a href = 'index.php?id=$id'><button class = 'myButton' style = 'float:center;'>Add to Cart</button></a>
+<a href = 'index.php?add_cart=$pid'><button class = 'myButton' name = 'addtocart' style = 'float:center;'>Add to Cart</button></a>
 
 </div>
 
 ";
 }
-else {
-	echo "
 
+
+else {
+
+	echo "
 <div id = 'singleProduct'>
 <h3>$NAME </h3>
 <img src = 'admin/productImages/$ProductImage' width = '180' height = '180 />'
 <br>
 <h4 style = 'float:center'>Price: £$Price </h4> 
-<a href = 'description.php?id=$id' style = 'float:center; color:black;'>Product Description</a>
+<a href = 'description.php?id=$pid' style = 'float:center; color:black;'>Product Description</a>
 <br>
 <a href = 'login.php'><button class = 'myButton' style = 'float:center;'>Add to Cart</button></a>
 
 </div>
 
 ";
+}	
+
+
+if (isset($_GET["add_cart"])){
+$pid = $_GET["add_cart"];
+$cid = $_SESSION['id'];
+
+$insert_product = "INSERT INTO cart (cid, pid) VALUES ($cid, $pid)";
+$run_pro = mysqli_query($con, $insert_product);
+
+
+if ($run_pro) {
+	echo "<script>alert('Product added to cart.')</script>";
 }
 
-
-
+}
 
 }
 
