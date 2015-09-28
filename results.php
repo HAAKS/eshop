@@ -140,7 +140,26 @@ while ($row_products = mysqli_fetch_array($run_products)) {
 	$Price = $row_products['Price'];
 	$ProductImage = $row_products['ProductImage'];
 if (isset($_SESSION['name'])) {
+	if ($Quantity <= 0) { 
 
+echo "
+
+<div id = 'singleProduct'>
+<h2 style = 'float: cnter;'>$NAME </h2>
+<img src = 'admin/productImages/$ProductImage' width = '500' height = '500; />'
+<br>
+<h3 style = 'float:center'>Price: £$Price </h3>
+<p style = 'float:center'>$Summary </p>  
+<br>
+<br>
+<br>
+<a href = ''><button class = 'myButton' name = 'soldout' style = 'float:center;'>SOLD OUT!</button></a>
+<div> <a href = 'index.php' style = 'float:center; color:black;'>Go Back</a> </div>
+
+
+";
+
+} else {
 echo "
 
 <div id = 'singleProduct'>
@@ -157,7 +176,7 @@ echo "
 
 
 ";
-
+}
 }
 else {
 	echo "
