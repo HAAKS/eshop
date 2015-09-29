@@ -85,7 +85,7 @@ echo "
 
 <section>
  <div id="topbar">
-  <a href="#">Show History of Bought Items</a>
+  <a href="history.php">Show History of Bought Items</a>
   </div>
 </section>
 <section>
