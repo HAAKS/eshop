@@ -71,8 +71,14 @@ session_start();
 					echo $_SESSION['name']."! ";
 					}
 					else {
-						echo "Guest! ";
-						} ?><b style= "color:yellow">Shopping Cart:</b> Total Items: 
+						echo "Guest! If you want to shop, you need to login/signup!";
+						} ?><b style= "color:yellow">
+
+<?php 
+if (isset($_SESSION['name'])) { ?>
+
+
+						Shopping Cart:</b> Total Items: 
 						<?php 
     $con = mysqli_connect('localhost', 'root', '', 'csen');
         mysql_connect("localhost", "root" ,"");
@@ -116,6 +122,7 @@ $total += $sumprice;
 						?> 
 
  <a href="shoppingcart.php" style= "color:yellow">Go to cart</a> </span>
+ <?php } ?>
 
 		</div>
 
