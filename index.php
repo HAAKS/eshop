@@ -214,7 +214,9 @@ if ($run_pro) {
 }
 }
 else {
-		echo"<script>window.open('history.php','_self')</script>";
+		echo "<script>alert('Product has been already purchased. Please choose another one.')</script>";
+
+		echo"<script>window.open('index.php','_self')</script>";
 
 }
 }
