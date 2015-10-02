@@ -79,7 +79,7 @@ echo "
         </ul>
       </nav>
       
- <section><h2> <b>Bio: <b> <?php echo $Bio."  "; ?><a href= "editBio.php"><img src="images/images/edit.png" alt="*Edit*"></a></h2></section>
+ <h2> <b>Bio: <b> <?php echo $Bio."  "; ?><a href= "editBio.php"><img src="images/images/edit.png" alt="*Edit*"></a></h2>
   <section><h2> <b>Email Address: <b> <?php echo $emailu."  "; ?><a href= "editEmail.php"><img src="images/images/edit.png" alt="*Edit*"></a></h2></section>
  <section><h2> <b>Age: <b> <?php echo $Age."  " ; ?><a href= "editAge.php"><img src="images/images/edit.png" alt="*Edit*"></a></h2></section>
 
