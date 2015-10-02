@@ -200,6 +200,11 @@ if (isset($_GET["add_cart"])){
 $pid = $_GET["add_cart"];
 $cid = $_SESSION['id'];
 
+$check_prod_in_buy = "SELECT * FROM buy where cid = $cid AND pid = $pid";
+$x=mysql_query($check_prod_in_buy);
+    $count =mysql_num_rows($x);
+if (! $count > 0) {
+
 $insert_product = "INSERT INTO cart (cid, pid) VALUES ($cid, $pid)";
 $run_pro = mysqli_query($con, $insert_product);
 
@@ -207,10 +212,14 @@ $run_pro = mysqli_query($con, $insert_product);
 if ($run_pro) {
 	echo "<script>alert('Product added to cart.')</script>";
 }
+}
+else {
+		echo"<script>window.open('history.php','_self')</script>";
 
 }
-
 }
+}
+
 
 ?>
 
