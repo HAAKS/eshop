@@ -174,10 +174,7 @@ while ($prod = mysqli_fetch_array($run_products_in_buy)) {
 	$delproducts_in_cart= "DELETE FROM cart WHERE  cid = $customerID AND pid = $pid2";
 $run_delproducts_in_cart = mysqli_query($con , $delproducts_in_cart);
 
-if ($run_delproducts_in_cart) {
-	echo"<script>window.open('history.php','_self')</script>";
 
-}
 	}
 
 
